@@ -2,9 +2,9 @@ name: Deploy Frontend
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, develop ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, develop ]
 
 jobs:
   build:
@@ -36,6 +36,7 @@ jobs:
     
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist
